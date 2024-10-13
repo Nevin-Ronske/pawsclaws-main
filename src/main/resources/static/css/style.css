@@ -1,0 +1,118 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: moccasin;
+}
+
+header {
+    background-color: saddlebrown;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+}
+
+header nav ul li {
+    display: inline;
+    margin-right: 15px;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+}
+
+header nav ul li a:hover {
+    background-color: #57575757;
+}
+
+footer {
+    background-color: saddlebrown;
+    color: lemonchiffon;
+    text-align: center;
+    padding: 15px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+
+}
+
+footer p {
+    margin: 0;
+    font-size: 14px;
+}
+
+table {
+    margin: 0 auto;
+    border-collapse: collapse;
+    width: 80%;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+table th,
+table td {
+    border: 5px #5A2A27 double;
+    padding: 10px;
+    text-align: center;
+
+}
+
+table th {
+    background-color: saddlebrown;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: saddlebrown;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: sandybrown;
+}
+
+.button-link {
+    display: inline-block;
+    padding: 5px 30px;
+    background-color: saddlebrown;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 16px;
+    margin: 5px;
+    /* cursor: pointer; */
+}
+
+.button-link:hover {
+    background-color: sandybrown;
+}
+.action-buttons {
+    text-align: center;
+    width: 100%;
+    
+}
