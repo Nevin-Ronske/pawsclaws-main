@@ -1,4 +1,5 @@
 package wcci.org.pawsclaws.DTO;
+
 public class ErrorDataDTO {
     private String errorMessage;
     private int errorCode = 0;

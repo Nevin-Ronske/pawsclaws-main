@@ -12,7 +12,7 @@ public class StatusDTO extends ErrorDataDTO {
         super();
     }
 
-    public StatusDTO(String name, PetType petType, String status , String value) {
+    public StatusDTO(String name, PetType petType, String status, String value) {
         this.name = name;
         this.petType = petType;
         this.status = status;

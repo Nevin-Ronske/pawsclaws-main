@@ -41,8 +41,8 @@
                 <span th:unless="${pet.isRobot()}">Hunger</span>
             </td>
             <td>
-                <span th:if="${pet.isRobot()}"th:text="${pet.battery}  + '%'"></span>
-                <span th:unless="${pet.isRobot()}"th:text="${pet.hunger} + '%'"></span>
+                <span th:if="${pet.isRobot()}" th:text="${pet.battery}  + '%'"></span>
+                <span th:unless="${pet.isRobot()}" th:text="${pet.hunger} + '%'"></span>
             </td>
         </tr>
         <tr>
@@ -51,8 +51,8 @@
                 <span th:unless="${pet.isRobot()}">Thirst</span>
             </td>
             <td>
-                <span th:if="${pet.isRobot()} "th:text="${pet.oil} + '%'"></span>
-                <span th:unless="${pet.isRobot()}"th:text="${pet.thirst} + '%'"></span>
+                <span th:if="${pet.isRobot()} " th:text="${pet.oil} + '%'"></span>
+                <span th:unless="${pet.isRobot()}" th:text="${pet.thirst} + '%'"></span>
             </td>
         </tr>
         <!-- <tr>
@@ -61,8 +61,8 @@
         </tr> -->
     </table>
     <div class=action-buttons>
-    <p th:text="${status.status}"></p>
-</div>
+        <p th:text="${status.status}"></p>
+    </div>
     <div class="action-buttons">
         <a class="button-link" href="#" th:href="@{/feed/{id}(id=${pet.id})}">Feed</a>
         <a class="button-link" href="#" th:href="@{/water/{id}(id=${pet.id})}">Water</a>

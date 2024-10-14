@@ -3,16 +3,25 @@ package wcci.org.pawsclaws.Controllers;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import wcci.org.pawsclaws.DTO.*;
 import wcci.org.pawsclaws.Enums.*;
+import wcci.org.pawsclaws.Services.ConfirmationService;
 import wcci.org.pawsclaws.Services.PetService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 @Controller
 public class PetController {
+    private final ConfirmationService confirmationService;
+
+    public PetController(ConfirmationService confirmationService, PetService petService) {
+        this.confirmationService = confirmationService;
+
+    }
 
     @Autowired
     private PetService service;
@@ -42,12 +51,24 @@ public class PetController {
     public String getDetails(@PathVariable long id, Model model) {
         StatusDTO status = new StatusDTO();
         PetDTO pet = service.getPetById(id);
-        pet.setStatus(pet.getStatus().replace("/n", "<br/>"));
-        model.addAttribute("pet", pet);
-        model.addAttribute("title", "Details for " + pet.getName());
-        model.addAttribute("status", status);
-
-        return "Shelter/ViewDetails";
+        if (pet == null) {
+            model.addAttribute("errorMessage",
+                    "Pet not found. It might have been adopted, died, or is no longer in the shelter.");
+            return "Shelter/ErrorMessage"; // Redirect to an error page
+        }
+        try {
+            pet.setStatus(pet.getStatus().replace("/n", "<br/>"));
+            model.addAttribute("pet", pet);
+            model.addAttribute("title", "Details for " + pet.getName());
+            model.addAttribute("status", status);
+            return "Shelter/ViewDetails";
+        } catch (HttpClientErrorException ex) {
+            if (ex.getStatusCode() == HttpStatus.BAD_REQUEST) {
+                model.addAttribute("errorMessage", "Pet not found or has been adopted.");
+                return "Shelter/ErrorMessage";
+            }
+            throw ex;
+        }
     }
 
     @GetMapping("create")
@@ -90,6 +111,11 @@ public class PetController {
     public String feedAPet(@PathVariable long id, Model model) {
         StatusDTO status = service.carePet(id, "feed");
         PetDTO pet = service.getPetById(id);
+        if (pet == null) {
+            model.addAttribute("errorMessage",
+                    "Pet not found. It might have been adopted, died, or is no longer in the shelter.");
+            return "Shelter/ErrorMessage"; // Redirect to error page
+        }
         model.addAttribute("pet", pet);
         model.addAttribute("title", "Details for " + pet.getName());
         model.addAttribute("petTypes", PetType.values());
@@ -102,6 +128,11 @@ public class PetController {
     public String waterAPet(@PathVariable long id, Model model) {
         StatusDTO status = service.carePet(id, "water");
         PetDTO pet = service.getPetById(id);
+        if (pet == null) {
+            model.addAttribute("errorMessage",
+                    "Pet not found. It might have been adopted, died, or is no longer in the shelter.");
+            return "Shelter/ErrorMessage"; // Redirect to error page
+        }
         model.addAttribute("pet", pet);
         model.addAttribute("title", "Details for " + pet.getName());
         model.addAttribute("petTypes", PetType.values());
@@ -114,6 +145,11 @@ public class PetController {
     public String playAPet(@PathVariable long id, Model model) {
         StatusDTO status = service.carePet(id, "play");
         PetDTO pet = service.getPetById(id);
+        if (pet == null) {
+            model.addAttribute("errorMessage",
+                    "Pet not found. It might have been adopted, died, or is no longer in the shelter.");
+            return "Shelter/ErrorMessage"; // Redirect to error page
+        }
         model.addAttribute("pet", pet);
         model.addAttribute("title", "Details for " + pet.getName());
         model.addAttribute("petTypes", PetType.values());
@@ -126,6 +162,11 @@ public class PetController {
     public String healAPet(@PathVariable long id, Model model) {
         StatusDTO status = service.carePet(id, "heal");
         PetDTO pet = service.getPetById(id);
+        if (pet == null) {
+            model.addAttribute("errorMessage",
+                    "Pet not found. It might have been adopted, died, or is no longer in the shelter.");
+            return "Shelter/ErrorMessage"; // Redirect to error page
+        }
         model.addAttribute("pet", pet);
         model.addAttribute("title", "Details for " + pet.getName());
         model.addAttribute("petTypes", PetType.values());
@@ -165,4 +206,21 @@ public class PetController {
         }
         return "redirect:/home";
     }
+
+    @GetMapping("/adoptPetConfirmation/{id}")
+    public String confirmAction(@PathVariable EditPetDTO pet, Long id, Model model) {
+        // Here you could either confirm the action directly
+        // or use the confirmationService if you have specific logic
+
+        // Assuming you want to confirm the action and then adopt the pet
+        boolean confirmed = confirmationService.confirmAction("adopt");
+
+        if (confirmed) {
+            service.deletePetById(id); // This would be your adoption logic
+            return "redirect:/adoptionSuccess"; // Redirect to a success page
+        } else {
+            return "redirect:/adoptionCancelled"; // Redirect to a cancellation page or message
+        }
+    }
+
 }

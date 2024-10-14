@@ -4,6 +4,7 @@ import java.util.*;
 
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import wcci.org.pawsclaws.DTO.*;
 
@@ -25,8 +26,14 @@ public class PetService {
 
     public PetDTO getPetById(long id) {
         String url = server + "/api/v1/shelter/" + id;
-        PetDTO pet = restTemplate.getForObject(url, PetDTO.class);
-        return pet;
+        try {
+            return restTemplate.getForObject(url, PetDTO.class);
+        } catch (HttpClientErrorException ex) {
+            if (ex.getStatusCode() == HttpStatus.BAD_REQUEST) {
+                return null; // Pet not found, return null
+            }
+            throw ex; // Re-throw other errors
+        }
     }
 
     public PetDTO saveAdd(AdmissionsDTO admit) {
@@ -60,4 +67,5 @@ public class PetService {
         restTemplate.delete(url);
 
     }
+
 }

@@ -112,7 +112,7 @@ public class PetDTO extends ErrorDataDTO {
         this.status = status;
     }
 
-    public boolean isRobot(){
+    public boolean isRobot() {
         return (this.getPetType() == PetType.RoboticCat || this.getPetType() == PetType.RoboticDog);
     }
 }
