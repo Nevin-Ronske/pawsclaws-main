@@ -1,11 +1,11 @@
-package wcci.org.pawsclaws.Enums;
+package wcci.org.pawsclaws.Enums; // Package declaration for Enums related to Paws and Claws application
 
 /**
- * This is the type of pet
+ * Enum representing the types of pets.
  */
 public enum PetType {
-    Dog, // same thing for Death 0
-    Cat, // 1
-    RoboticCat, // 2
-    RoboticDog, // 3
+    Dog, // Represents a dog (Type 0)
+    Cat, // Represents a cat (Type 1)
+    RoboticCat, // Represents a robotic cat (Type 2)
+    RoboticDog, // Represents a robotic dog (Type 3)
 }

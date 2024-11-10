@@ -7,7 +7,8 @@
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    background-color: moccasin;
+    background: moccasin;
+    margin-bottom: 4rem;
 }
 
 header {
@@ -52,6 +53,12 @@ footer {
     bottom: 0;
     width: 100%;
 
+
+}
+
+.td-status {
+    text-align: left;
+    padding-left: 2rem;
 }
 
 footer p {
@@ -104,15 +111,34 @@ button:hover {
     text-decoration: none;
     border-radius: 10px;
     font-size: 16px;
-    margin: 5px;
-    /* cursor: pointer; */
+    margin-bottom: .3rem;
+
+
 }
 
 .button-link:hover {
     background-color: sandybrown;
 }
+
 .action-buttons {
     text-align: center;
     width: 100%;
-    
+
+}
+.action-details-buttons {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 4rem;
+
+}
+
+.center-img {
+display:flex;
+justify-content: center;
+align-items: center;
+width: 100%;
+
+;
+
+
 }

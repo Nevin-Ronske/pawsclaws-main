@@ -10,7 +10,11 @@
 
 <body>
     <div th:insert="fragments/Header :: siteHeader"></div>
+  <span class="center-img">
+    <img class="details-img" th:src="${image}" width="20%" height="20%" alt="">
+  </span>
     <table>
+
         <tr>
             <td>Name</td>
             <td th:text="${pet.name}"></td>
@@ -63,7 +67,7 @@
     <div class=action-buttons>
         <p th:text="${status.status}"></p>
     </div>
-    <div class="action-buttons">
+    <div class="action-details-buttons">
         <a class="button-link" href="#" th:href="@{/feed/{id}(id=${pet.id})}">Feed</a>
         <a class="button-link" href="#" th:href="@{/water/{id}(id=${pet.id})}">Water</a>
         <a class="button-link" href="#" th:href="@{/play/{id}(id=${pet.id})}">Play</a>
